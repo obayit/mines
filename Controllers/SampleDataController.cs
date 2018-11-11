@@ -16,6 +16,7 @@ namespace mines.Controllers
             m.initMine();
             return new JsonResult(m.mines);
         }
+        //mmmph
         private static string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
