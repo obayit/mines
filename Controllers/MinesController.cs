@@ -14,7 +14,7 @@ namespace mines.Controllers
             public int width;
             public int height;
             public int minesCount;
-            public int[][] mines;
+            public int[][] values;
         }
         [HttpGet("[action]")]
         public JsonResult getMines(){
@@ -24,7 +24,7 @@ namespace mines.Controllers
             res.width = m.width;
             res.height = m.height;
             res.minesCount = m.minesCount;
-            res.mines = m.mines;
+            res.values = m.mines;
             return new JsonResult(res);
         }
     }
