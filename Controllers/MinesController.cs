@@ -16,10 +16,19 @@ namespace mines.Controllers
             public int minesCount;
             public Mine[][] mines;
         }
+        private MinesContext _context;
+        public MinesController(MinesContext context){
+            _context = context;
+        }
         [HttpGet("[action]")]
         public JsonResult getMines(){
-            var m = new Mines(10, 12, 15);
+            Mines m = _context.Mines.Find(1);
+            if(m == null){
+                m = new Mines(10, 12, 15);
+                _context.Mines.Add(m);
+            }
             m.initMine();
+            _context.SaveChanges();
             var res = new MinesInfo();
             res.width = m.width;
             res.height = m.height;
