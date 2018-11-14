@@ -14,17 +14,17 @@ namespace mines.Controllers
             public int width;
             public int height;
             public int minesCount;
-            public int[][] values;
+            public Mine[][] mines;
         }
         [HttpGet("[action]")]
         public JsonResult getMines(){
-            var m = new Mines(10, 10, 15);
+            var m = new Mines(10, 12, 15);
             m.initMine();
             var res = new MinesInfo();
             res.width = m.width;
             res.height = m.height;
             res.minesCount = m.minesCount;
-            res.values = m.mines;
+            res.mines = m.mines;
             return new JsonResult(res);
         }
     }
