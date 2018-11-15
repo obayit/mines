@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace mines.model{
     public class Mine{
-        public int x;//
-                     // TODO: use x, y properties instead of the array, to save it in the database. Or save it as json string(parsing is fairly simple)
-        public int y;//
+        // public int x;//
+        //              // TODO: use x, y properties instead of the array, to save it in the database. Or save it as json string(parsing is fairly simple)
+        // public int y;//
         public int value;
         public string bgColor;
         public bool isClicked = false;
@@ -16,29 +16,30 @@ namespace mines.model{
     public class Mines{
         [Key]
         public int Id { get; set; }
-        public List<List<Mine>> mines { get; set; }
+        public Mine[][] mines { get; set; }
         public int minesCount;
         public int width;
         public int height;
-        public Mines(int width, int height, int minesCount){
+        public Mines(int height, int width, int minesCount){
             this.minesCount = minesCount;
             this.width = width;
             this.height= height;
-            mines = new List<List<Mine>>(height);
-            for(var i=0; i<mines.Count; i++){
-                mines[i] = _initMinesList(width);
+            mines = new Mine[height][];
+            for(var i=0; i<mines.Length; i++){
+                mines[i] = _initMinesArray(width);
             }
+            _initMine();
         }
-        private List<Mine> _initMinesList(int length){
-            var res = new List<Mine>(length);
-            for(var i=0; i<res.Count; ++i){
+        private Mine[] _initMinesArray(int length){
+            var res = new Mine[length];
+            for(var i=0; i<res.Length; ++i){
                 res[i] = new Mine(){
                     bgColor = "bgDefault"
                 };
             }
             return res;
         }
-        public void initMine(){
+        private void _initMine(){
             var rnd = new Random();
             for(var i=minesCount; i>0; i--){
                 var xPos = rnd.Next(1, height-1);

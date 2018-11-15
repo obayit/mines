@@ -24,9 +24,10 @@ namespace mines
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddDbContext<MinesContext>((options =>
-                              options.UseInMemoryDatabase()));
+            // services.AddDbContext<MinesContext>((options =>
+            //                   options.UseInMemoryDatabase()));
 
+            services.AddSingleton(new Mines(12, 10, 15));
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
