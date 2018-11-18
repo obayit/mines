@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using mines.model;
+using mines.services;
+using mines.signalr;
 
 namespace mines
 {
@@ -28,11 +30,13 @@ namespace mines
             //                   options.UseInMemoryDatabase()));
 
             services.AddSingleton(new Mines(12, 10, 15));
+            services.AddSingleton<IGameEvents, GameEvents>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +55,10 @@ namespace mines
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseSignalR(routes =>{
+                routes.MapHub<GameHub>("/gameHub");
+            });
 
             app.UseMvc(routes =>
             {
