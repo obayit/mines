@@ -11,7 +11,6 @@ namespace mines.model{
         public string bgColor;
         public bool isClicked = false;
         public bool flagged = false;
-        public Mines mines { get; set; }
     }
     public class Mines{
         [Key]
