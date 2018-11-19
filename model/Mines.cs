@@ -20,14 +20,10 @@ namespace mines.model{
         public int width;
         public int height;
         public Mines(int height, int width, int minesCount){
-            this.minesCount = minesCount;
-            this.width = width;
-            this.height= height;
-            mines = new Mine[height][];
-            for(var i=0; i<mines.Length; i++){
-                mines[i] = _initMinesArray(width);
-            }
-            _initMine();
+            _initMine(height, width, minesCount);
+        }
+        public void reset(){
+            _initMine(this.height, this.width, this.minesCount);           
         }
         private Mine[] _initMinesArray(int length){
             var res = new Mine[length];
@@ -38,7 +34,15 @@ namespace mines.model{
             }
             return res;
         }
-        private void _initMine(){
+        private void _initMine(int height, int width, int minesCount){
+            this.minesCount = minesCount;
+            this.width = width;
+            this.height= height;
+            mines = new Mine[height][];
+            for(var i=0; i<mines.Length; i++){
+                mines[i] = _initMinesArray(width);
+            }
+
             var rnd = new Random();
             for(var i=minesCount; i>0; i--){
                 var xPos = rnd.Next(1, height-1);
