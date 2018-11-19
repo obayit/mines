@@ -31,5 +31,15 @@ namespace mines.Controllers
             res.mines = _mines.mines;
             return new JsonResult(res);
         }
+        [HttpGet("[action]")]
+        public JsonResult resetMines(){
+            _mines.reset();
+            var res = new MinesInfo();
+            res.width = _mines.width;
+            res.height = _mines.height;
+            res.minesCount = _mines.minesCount;
+            res.mines = _mines.mines;
+            return new JsonResult(res);
+        }
     }
 }
