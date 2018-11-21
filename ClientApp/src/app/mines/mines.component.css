@@ -1,0 +1,18 @@
+table.minesTable{
+    background-color: rgb(112, 139, 189);
+}
+
+th.mine{
+    cursor: default;
+    border: 1px solid rgb(55, 97, 175);
+    min-width: 25px;
+    height: 25px;
+}
+
+th.bgDefault{
+    background-color: rgb(112, 139, 189);
+}
+
+th.opened{
+    background-color: rgb(196, 205, 221);
+}

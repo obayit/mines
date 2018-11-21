@@ -1,0 +1,26 @@
+<div class="container">
+<div class="row">
+
+  <div class="col-2"></div>
+
+  <div *ngIf="minesInfo && viewModel" class="col-8">
+    <table class="minesTable">
+        <tr *ngFor="let i of heightArray">
+          <th *ngFor="let j of widthArray" 
+          class="mine {{minesInfo.mines[i][j].bgColor}} text-center" 
+          (click)="onClick(i, j)" (dblclick)="onDbClick(i, j)"
+          (contextmenu)="onRightClick(i, j)">
+          {{viewModel[i][j]}}
+          <div *ngIf="minesInfo.mines[i][j].flagged" class="{{flaggedClass}}"></div>
+        </th>
+        </tr>
+    </table>
+  </div>
+
+  <div class="col-2">
+    <button class="btn btn-default" (click)="restartGame()">Restart</button>
+    <i class="fa fa-hashtag"></i>
+  </div>
+</div>
+
+<app-game-over *ngIf="isGameOver" text="Game Over"></app-game-over>
