@@ -29,7 +29,7 @@ namespace mines
             // services.AddDbContext<MinesContext>((options =>
             //                   options.UseInMemoryDatabase()));
 
-            services.AddSingleton(new Mines(12, 10, 15));
+            services.AddSingleton(new Mines(10, 10, 15));
             services.AddSingleton<IGameEvents, GameEvents>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -55,6 +55,7 @@ namespace mines
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseAuthentication();
 
             app.UseSignalR(routes =>{
                 routes.MapHub<GameHub>("/gameHub");

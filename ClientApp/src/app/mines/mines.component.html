@@ -1,9 +1,16 @@
-<div class="container">
+<div class="container-fluid">
+
+<div class="row">
+  <div class="col">
+    <button class="btn btn-default" (click)="restartGame()">Restart</button>
+    <i class="fa fa-hashtag"></i>
+  </div>
+</div>
+
 <div class="row">
 
-  <div class="col-2"></div>
 
-  <div *ngIf="minesInfo && viewModel" class="col-8">
+  <div *ngIf="minesInfo && viewModel" class="col-12">
     <table class="minesTable">
         <tr *ngFor="let i of heightArray">
           <th *ngFor="let j of widthArray" 
@@ -17,10 +24,6 @@
     </table>
   </div>
 
-  <div class="col-2">
-    <button class="btn btn-default" (click)="restartGame()">Restart</button>
-    <i class="fa fa-hashtag"></i>
-  </div>
 </div>
 
 <app-game-over *ngIf="isGameOver" text="Game Over"></app-game-over>
