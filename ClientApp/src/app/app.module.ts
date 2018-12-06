@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MinesComponent } from './mines/mines.component';
 import { GameOverComponent } from './game-over/game-over.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MinesComponent,
-    GameOverComponent
+    GameOverComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

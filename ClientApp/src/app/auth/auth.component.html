@@ -1,0 +1,16 @@
+<div class="nav" *ngIf="isLoggedOn">
+  <li class="nav-item" >
+    <p class="nav-link">{{username}}</p>
+  </li>
+  <li class="nav-item" >
+    <form method="POST" action="/Identity/Account/Logout">
+      <button type="submit" class="btn btn-link">Logout</button>
+    </form>
+  </li>
+</div>
+
+<div *ngIf="!isLoggedOn">
+  <li class="nav-item" >
+    <a class="nav-link" href="/Identity/Account/Login">Login</a>
+  </li>
+</div>
