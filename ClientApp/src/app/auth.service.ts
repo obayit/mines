@@ -8,16 +8,48 @@ import { catchError, map, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  getUserName = 'Accounts';
+  getUserNameUrl = '/Accounts';
+  logoutUrl = '/Identity/Account/Logout';
+  antiForgeryName = '__RequestVerificationToken';
+  logoutAntiForgeryToken: string;
 
   constructor(
     private http: HttpClient
   ) { }
   getUsername(): Observable<string> {
-    return  this.http.get<string>(this.getUserName).pipe(
+    return  this.http.get<string>(this.getUserNameUrl).pipe(
       tap(_ => this.log("fetched username")),
       catchError(this.handleError<string>('getUsername'))
     );
+  }
+
+  logout(){
+  // logout(): Observable<any>{
+    this.http.get(this.logoutUrl, { responseType: 'text'}).pipe(
+      tap(_ => this.log("get::logout token")),
+      catchError(this.handleError<string>('get::logout'))
+    ).subscribe(res => {
+        let page = document.createElement('html');
+        page.innerHTML = res.toString();
+        let inputs = page.getElementsByTagName('input');
+        if(inputs.length > 0){
+          let token = this.logoutAntiForgeryToken = inputs[0].value;
+          let formData = new FormData();
+          formData.append(this.antiForgeryName, token);
+          this.http.post(this.logoutUrl, formData).pipe(
+            tap(_ => this.log("logged out")),
+            catchError(this.handleError<string>('logout'))
+          ).subscribe();
+        }else{
+          this.log(':: fail token ::' + res);
+        }
+    });
+      
+    // this.log('logout token is ' + this.logoutAntiForgeryToken);
+    // this.http.post(this.logoutUrl, {__RequestVerificationToken: this.logoutAntiForgeryToken}).pipe(
+    //   tap(_ => this.log("logged out")),
+    //   catchError(this.handleError<string>('logout'))
+    // ).subscribe();
   }
 
 

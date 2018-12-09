@@ -26,4 +26,9 @@ export class AuthComponent implements OnInit {
     });
   }
 
+  logout(){
+    this.authService.logout();
+    this.isLoggedOn = false;
+  }
+
 }

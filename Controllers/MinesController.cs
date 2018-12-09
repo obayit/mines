@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using mines.model;
 
 namespace mines.Controllers
 {
     [Route("api/[controller]")]
+    // [Authorize]
     public class MinesController : Controller
     {
         public class MinesInfo{

@@ -37,6 +37,12 @@ namespace mines
             });
             services.AddSignalR();
             services.AddAutoMapper();
+            services.AddAuthentication();
+            // services.AddAuthentication(JwtBearerDefaults.Authentication.Scheme)
+            //     .AddJwtBearer(options =>{
+            //         options.Authority = "tf2fan";
+            //         options.Audience = "n00bs";
+            //     });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

@@ -1,16 +1,34 @@
-<div class="nav" *ngIf="isLoggedOn">
-  <li class="nav-item" >
-    <p class="nav-link">{{username}}</p>
-  </li>
-  <li class="nav-item" >
-    <form method="POST" action="/Identity/Account/Logout">
-      <button type="submit" class="btn btn-link">Logout</button>
-    </form>
-  </li>
-</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Start Bootstrap</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+            </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Sample</a>
+            </li>
 
-<div *ngIf="!isLoggedOn">
-  <li class="nav-item" >
-    <a class="nav-link" href="/Identity/Account/Login">Login</a>
-  </li>
-</div>
+            <li *ngIf="isLoggedOn" class="nav-item" >
+              <p class="nav-link">{{username}}</p>
+            </li>
+
+            <li *ngIf="isLoggedOn" class="nav-item" >
+              <button (click)="logout()" type="submit" class="btn btn-link">Logout</button>
+            </li>
+
+            <div *ngIf="!isLoggedOn">
+              <li class="nav-item" >
+                <a class="nav-link" href="/Identity/Account/Login">Login</a>
+              </li>
+            </div>
+        </ul>
+        </div>
+    </div>
+</nav>
