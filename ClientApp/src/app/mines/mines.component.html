@@ -1,17 +1,9 @@
-<div class="container-fluid">
+<div class="container m-4">
 
 <div class="row">
-  <div class="col">
-    <button class="btn btn-default" (click)="restartGame()">Restart</button>
-    <i class="fa fa-hashtag"></i>
-  </div>
-</div>
-
-<div class="row">
-
 
   <div *ngIf="minesInfo && viewModel" class="col-12">
-    <table class="minesTable">
+    <table class="minesTable mx-auto">
         <tr *ngFor="let i of heightArray">
           <th *ngFor="let j of widthArray" 
           class="mine {{minesInfo.mines[i][j].bgColor}} text-center" 
@@ -26,4 +18,14 @@
 
 </div>
 
-<app-game-over *ngIf="isGameOver" text="Game Over"></app-game-over>
+<div class="row m-3" *ngIf="isGameOver">
+<!-- <div class="row mx-auto m-3"> -->
+    <div class="col-6">
+      <div class="alert alert-danger pull-right">
+        {{gameoverText}}
+      </div>
+    </div>
+    <div class="col-6">
+      <button class="btn btn-primary pull-left m-2" (click)="restartGame()">Restart</button>
+    </div>
+</div>

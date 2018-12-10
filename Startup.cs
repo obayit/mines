@@ -28,7 +28,7 @@ namespace mines
             // services.AddDbContext<MinesContext>((options =>
             //                   options.UseInMemoryDatabase()));
 
-            services.AddSingleton(new Mines(10, 10, 15));
+            services.AddSingleton(new Mines(30, 30, 200));
             services.AddSingleton<IGameEvents, GameEvents>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

@@ -20,6 +20,7 @@ export class MinesComponent implements OnInit {
   height: number;
   width: number;
   flaggedClass: string = "fa fa-flag";
+  gameoverText = 'Game Over';
 
   isGameOver: boolean = false;
 
@@ -114,6 +115,7 @@ export class MinesComponent implements OnInit {
       for(let i=0; i<this.minesInfo.height;++i){
         this.viewModel[i] = new Array<number>(this.minesInfo.width);
       }
+      this.isGameOver = false;
     })
   }
 

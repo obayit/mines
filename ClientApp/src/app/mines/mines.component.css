@@ -16,3 +16,8 @@ th.bgDefault{
 th.opened{
     background-color: rgb(196, 205, 221);
 }
+
+my-center{
+    width: 100%;
+    margin: 0 auto;
+}

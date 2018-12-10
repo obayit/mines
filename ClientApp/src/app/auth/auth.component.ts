@@ -12,6 +12,7 @@ import { Observable, of } from 'rxjs'
 export class AuthComponent implements OnInit {
   username: string;
   isLoggedOn: boolean;
+  title = "Mines";
 
   constructor(
     private authService: AuthService
