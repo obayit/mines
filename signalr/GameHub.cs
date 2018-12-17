@@ -20,9 +20,14 @@ namespace mines.signalr{
             _gameEvents.Clicked(_mines, x, y);
             await Clients.Others.SendAsync("Clicked", x, y);
         }
-        public async Task Flagged(int x, int y, bool isSignalrTriggered){
-            // _gameEvents.Flagged(_mines, x, y, flagged);
-            await Clients.Others.SendAsync("Flagged", x, y, true);
+        public async Task Flagged(int x, int y, bool flag){
+            _gameEvents.Flagged(_mines, x, y, flag);
+            await Clients.Others.SendAsync("Flagged", x, y, flag);
+        }
+        public async Task Restart(int x, int y)
+        {
+            var res = _gameEvents.Restart(_mines);
+            await Clients.Others.SendAsync("Restart", res);
         }
     }
 }

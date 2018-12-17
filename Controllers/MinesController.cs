@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using mines.model;
+using mines.ViewModels;
 
 namespace mines.Controllers
 {
@@ -12,12 +13,6 @@ namespace mines.Controllers
     // [Authorize]
     public class MinesController : Controller
     {
-        public class MinesInfo{
-            public int width;
-            public int height;
-            public int minesCount;
-            public Mine[][] mines;
-        }
         private Mines _mines;
         public MinesController(
             Mines mines

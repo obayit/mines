@@ -5,8 +5,12 @@ table.minesTable{
 th.mine{
     cursor: default;
     border: 1px solid rgb(55, 97, 175);
-    min-width: 25px;
-    height: 25px;
+    min-width: 27px;
+    height: 27px;
+}
+
+th{
+    transition: background-color 200ms;
 }
 
 th.bgDefault{
@@ -15,6 +19,16 @@ th.bgDefault{
 
 th.opened{
     background-color: rgb(196, 205, 221);
+}
+
+.no-select { /*https://stackoverflow.com/a/4407335/3557761*/
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
 }
 
 my-center{

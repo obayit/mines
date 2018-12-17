@@ -2,11 +2,18 @@
 
 <div class="row">
 
-  <div *ngIf="minesInfo && viewModel" class="col-12">
+  <div class="col-3">
+    <h3>Todo:</h3>
+    <ul>
+      <li>Make the game ending</li>
+      <li>Add the mine indicator</li>
+    </ul>
+  </div>
+  <div *ngIf="minesInfo && viewModel" class="col-9">
     <table class="minesTable mx-auto">
         <tr *ngFor="let i of heightArray">
           <th *ngFor="let j of widthArray" 
-          class="mine {{minesInfo.mines[i][j].bgColor}} text-center" 
+          class="mine {{minesInfo.mines[i][j].bgColor}} text-center no-select" 
           (click)="onClick(i, j)" (dblclick)="onDbClick(i, j)"
           (contextmenu)="onRightClick(i, j)">
           {{viewModel[i][j]}}

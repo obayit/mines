@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import { trigger, state, style, animate, transition } from '@angular/animations'
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
@@ -9,7 +10,11 @@ import { SignalrServiceService, ClickSignalData } from '../signalr-service.servi
 @Component({
   selector: 'app-mines',
   templateUrl: './mines.component.html',
-  styleUrls: ['./mines.component.css']
+  styleUrls: ['./mines.component.css'],
+  // animations: [
+  //   state('open', style({
+  //   }))
+  // ]
 })
 export class MinesComponent implements OnInit {
   minesInfo: MinesInfo;
@@ -36,8 +41,12 @@ export class MinesComponent implements OnInit {
         this.onClick(next.x, next.y);
     });
     this.signalrService.flagSignalData.subscribe( next =>{
-        console.log(`signalr flagged: ${next.x}, ${next.x} isSignalrTriggered ${next.isSignalrTriggered}`);
-        this.onRightClick(next.x, next.y, true);
+        console.log(`signalr flagged: ${next.x}, ${next.y} isSignalrTriggered ${next.flag}`);
+        this.flagChanged(next.x, next.y, next.flag);
+    });
+    this.signalrService.restartGame.subscribe( next =>{
+        console.log(`signalr restartGame`);
+        this.getMines();
     });
     this.getMines();
   }
@@ -45,6 +54,7 @@ export class MinesComponent implements OnInit {
   getMines() {
     this.minesService.getMines()
     .subscribe( res => {
+      console.log(res);
       this.minesInfo = res;
       this.height = res.height;
       this.width = res.width;
@@ -53,16 +63,29 @@ export class MinesComponent implements OnInit {
       this.viewModel = new Array<Array<number>>(this.minesInfo.height);
       for(let i=0; i<this.minesInfo.height;++i){
         this.viewModel[i] = new Array<number>(this.minesInfo.width);
+        for(let j=0; j<this.minesInfo.width;++j){
+          //meh
+          // this.viewModel[i][j] = res.mines[i][j].value;
+          if(res.mines[i][j].isClicked){
+            this.viewModel[i][j] = res.mines[i][j].value;
+          }
+        }
       }
-    })
+    });
   }
 
-  onRightClick(x: number, y: number, isSignalrTriggered: boolean = false){
-    let value = !this.minesInfo.mines[x][y].flagged;
-    this.minesInfo.mines[x][y].flagged = value;
-    // if(!isSignalrTriggered){
-    //   this.signalrService.OnFlagged(x, y, false);
-    // }
+  flagChanged(x: number, y: number, flag: boolean = false){
+    let mine = this.minesInfo.mines[x][y];
+    if(!mine.isClicked){
+      mine.flagged = flag;
+    }
+  }
+  onRightClick(x: number, y: number){
+    let mine = this.minesInfo.mines[x][y];
+    if(!mine.isClicked){
+      mine.flagged = !mine.flagged;
+      this.signalrService.OnFlagged(x, y, mine.flagged);
+    }
     return false;
   }
   onClick(x: number, y: number){
@@ -75,6 +98,7 @@ export class MinesComponent implements OnInit {
     this.minesInfo.mines[x][y].bgColor = "opened";
     let mine = this.minesInfo.mines[x][y];
     if(mine.value == 0){
+      console.log(`zero at ${x}, ${y}`)
       this.clickNeighbors(x, y);
     }
     this.viewModel[x][y] = mine.value;
@@ -106,6 +130,7 @@ export class MinesComponent implements OnInit {
   resetGame() {
     this.minesService.resetMines()
     .subscribe( res => {
+      this.signalrService.OnRestart();
       this.minesInfo = res;
       this.height = res.height;
       this.width = res.width;
